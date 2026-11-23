@@ -1,0 +1,234 @@
+<title>TBG Ethical Flow</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column; role x stage lane grid on top (scrolls sideways on its own), status register below. */
+:root{
+  --bg:#f4f6fa; --surface:#ffffff; --ink:#1d2433; --muted:#5d6779; --line:#dde2ec;
+  --accent:#0b3d91; --accent-soft:#e6edf9; --lane:#eef1f6;
+  --ok:#1f9d48; --warn:#d99a00; --err:#d23b2b; --info:#1f6fe5; --neu:#9aa3b2;
+  --todo-bg:#fff7e6; --todo-line:#e2a72e;
+  --f-body:"Roboto",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Roboto Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11151d; --surface:#1a202b; --ink:#e7ebf3; --muted:#9aa4b6; --line:#2c3443;
+  --accent:#8fb3ff; --accent-soft:#1f2b44; --lane:#161b25;
+  --ok:#3cc56a; --warn:#f0b72f; --err:#ff6b5c; --info:#5c9dff; --neu:#7c8698;
+  --todo-bg:#2e2614; --todo-line:#c99327; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11151d; --surface:#1a202b; --ink:#e7ebf3; --muted:#9aa4b6; --line:#2c3443;
+  --accent:#8fb3ff; --accent-soft:#1f2b44; --lane:#161b25;
+  --ok:#3cc56a; --warn:#f0b72f; --err:#ff6b5c; --info:#5c9dff; --neu:#7c8698;
+  --todo-bg:#2e2614; --todo-line:#c99327; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.5}
+.wrap{max-width:1320px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:40px}
+header{display:grid;gap:8px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+h1{font-size:30px;line-height:1.2;margin:0;text-wrap:balance;font-weight:700}
+h2{font-size:20px;margin:0;font-weight:700;text-wrap:balance}
+p{margin:0;max-width:72ch}
+.lede{color:var(--muted)}
+section{display:grid;gap:16px;min-width:0}
+.controls{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+.group{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.group>span{font-size:12px;color:var(--muted);margin-right:4px}
+button.chip{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:6px 12px;border-radius:999px;cursor:pointer}
+button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+button.chip:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;border:1px solid var(--line);background:var(--surface)}
+.legend i.todo{background:var(--todo-bg);border:1px dashed var(--todo-line)}
+.scroller{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.lanes{display:grid;grid-template-columns:150px repeat(8,minmax(170px,1fr));min-width:1520px}
+.lanes .head{position:sticky;top:0;background:var(--surface);font-size:12px;font-weight:500;color:var(--muted);padding:12px 10px;border-bottom:1px solid var(--line)}
+.lanes .head b{display:block;color:var(--ink);font-size:13px}
+.role{padding:14px 12px;font-weight:700;border-top:1px solid var(--line);background:var(--lane);font-size:13px}
+.role small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.cell{padding:8px;border-top:1px solid var(--line);border-left:1px solid var(--line);background:var(--lane);display:flex;flex-direction:column;gap:8px;min-width:0}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;display:grid;gap:6px;transition:opacity .15s}
+.step.todo{background:var(--todo-bg);border:1px dashed var(--todo-line)}
+.step.dim{opacity:.22}
+.step .t{font-size:13px;line-height:1.35}
+.step .meta{display:flex;flex-wrap:wrap;gap:4px 8px;font-size:11px;color:var(--muted)}
+.step a{color:var(--accent);text-decoration:none;font-family:var(--f-mono);font-size:11px}
+.step a:hover{text-decoration:underline}
+.tag{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--todo-line)}
+.paths{font-family:var(--f-mono);font-size:10px;color:var(--muted)}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:12px;white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--neu);flex:none}
+.dot.Info{background:var(--info)}.dot.Success{background:var(--ok)}.dot.Warning{background:var(--warn)}.dot.Error{background:var(--err)}.dot.Neutral{background:var(--neu)}
+.paths-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.path{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:10px;align-content:start}
+.path h3{margin:0;font-size:15px}
+.path .code{font-family:var(--f-mono);font-size:12px;color:var(--accent)}
+.path ol{margin:0;padding-left:18px;display:grid;gap:4px;font-size:13px}
+.path ol li span{color:var(--muted)}
+table{border-collapse:collapse;width:100%;min-width:860px;background:var(--surface)}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}
+th{font-size:12px;color:var(--muted);font-weight:500;background:var(--surface);position:sticky;top:0}
+td.n{font-family:var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums;width:40px}
+tr.stage td{background:var(--lane);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td a{color:var(--accent);font-family:var(--f-mono);font-size:12px;text-decoration:none}
+td a:hover{text-decoration:underline}
+.new{font-size:10px;font-weight:700;color:var(--todo-line);margin-left:6px;letter-spacing:.04em}
+.changes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.changes div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:6px}
+.changes b{font-size:14px}
+.changes p{font-size:13px;color:var(--muted)}
+.e2e{display:flex;gap:14px;align-items:flex-start;padding:18px 20px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;text-decoration:none;color:var(--ink)}
+.e2e:hover{background:var(--accent-soft)}
+.tri{width:0;height:0;border-left:9px solid var(--accent);border-top:6px solid transparent;border-bottom:6px solid transparent;flex:none;margin-top:5px}
+.e2e b{font-size:17px;display:block}.e2e span.d{color:var(--muted);font-size:13px}
+.protoidx{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.pgroup{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:6px;align-content:start}
+.pgroup h3{margin:0 0 4px;font-size:14px;display:flex;justify-content:space-between}.pgroup h3 small{color:var(--muted);font-weight:400;font-family:var(--f-mono);font-size:11px}
+.play{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border:1px solid var(--line);border-radius:6px;text-decoration:none;color:var(--ink);font-size:13px;line-height:1.35}
+.play:hover{background:var(--accent-soft)}.play .tri{margin-top:4px;border-left-width:7px;border-top-width:5px;border-bottom-width:5px}
+.play .pk{font-family:var(--f-mono);font-size:11px;color:var(--accent);white-space:nowrap}
+.step a.pl{font-family:var(--f-body);font-weight:500}
+@media (prefers-reduced-motion:reduce){.step{transition:none}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">TBG · Ethical &amp; SQA prototype · 22 Nov 2026</div>
+  <h1>TBG Ethical Flow</h1>
+  <p class="lede">Who does what, in which stage, for each audit type, and every ethical status in the order it happens. Every step now has a screen in Figma, laid out in role lanes (Buyer, Supplier, Ethical team, Lab, ICW account) on the same page.</p>
+</header>
+
+<section aria-labelledby="h-proto">
+  <h2 id="h-proto">Clickable prototype, by role</h2>
+  <p class="lede">Start with the end-to-end path, then play each role's own flows (return, reject, resubmit, draft). Every ▶ opens the Figma prototype on that flow; every frame id below opens the frame in Figma. The top bar role switch takes you to that role's home page.</p>
+  <a class="e2e" id="e2e" target="_blank" rel="noopener"><span class="tri" aria-hidden="true"></span><span><b>End-to-end walk-through</b><span class="d">Login → supplier applies → ethical team reviews → kick start → quote and invoice → audit / desktop review → report and CAP → conclusion.</span></span></a>
+  <div class="protoidx" id="protoidx"></div>
+</section>
+
+<section aria-labelledby="h-lanes">
+  <h2 id="h-lanes">Role flow</h2>
+  <div class="controls">
+    <div class="group" role="group" aria-label="Audit type"><span>Audit type</span>
+      <button class="chip" data-path="ALL" aria-pressed="true">All</button>
+      <button class="chip" data-path="A" aria-pressed="false">A · Factory audit onsite</button>
+      <button class="chip" data-path="B" aria-pressed="false">B · Desktop · third party</button>
+      <button class="chip" data-path="C" aria-pressed="false">C · Desktop · in house</button>
+      <button class="chip" data-path="D" aria-pressed="false">D · Accept existing report</button>
+    </div>
+  </div>
+  <div class="legend"><span><i></i>Screen in Figma (click the id)</span><span><i class="todo"></i>Not built yet</span><span>Status chips show the status the step sets</span></div>
+  <div class="scroller"><div class="lanes" id="lanes"></div></div>
+</section>
+
+<section aria-labelledby="h-paths">
+  <h2 id="h-paths">The four audit types</h2>
+  <p class="lede">Chosen by the ethical team on 4.03 Select Audit Type and Lab. Only A and B go to a lab for a quote, so only A and B have Quotation and Invoice.</p>
+  <div class="paths-grid" id="paths"></div>
+</section>
+
+<section aria-labelledby="h-status">
+  <h2 id="h-status">Ethical status register</h2>
+  <p class="lede">One Ethical Status column on the factory table (the supplier sees its own names, in the Supplier sees column) records application and kick start together (it replaces the Application List and the Ethical &amp; On-boarding List). The second line in the table cell is the stage and the role that acts next. 26 statuses; E.01 in Figma shows one row per status to check the column width. The final status is Approve (not Active); Rejected replaces Inactive; there is no Expires status.</p>
+  <div class="scroller"><table id="status"><thead><tr><th>#</th><th>Status (ethical team)</th><th>Supplier sees</th><th>Stage · who acts next</th><th>Set when</th><th>Audit type</th><th>Frame</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-changes">
+  <h2 id="h-changes">Changed in Figma this round</h2>
+  <div class="changes">
+    <div><b>Map tooltips</b><p>1b.01m (supplier) and E.01m (ethical team) colour each pin by its Ethical Task Status. Hover a pin for factory, SVSI score, status, valid until, open CAP and scheme; clicking the pin or OPEN TASK opens that task. 1b.01mh and E.01mh show a tooltip open.</p></div>
+    <div><b>Every tier decision has the other options</b><p>On 1st- and 2nd-tier review pages the decision box always offers the other paths: matched → CONFIRM THIS FACTORY / MARK AS NEW / CREATE NEW; marked as new → SELECT EXISTING / CREATE NEW / CONFIRM; created new → MARK AS NEW / CREATE NEW / CONFIRM; confirmed → UNDO / SELECT EXISTING / CREATE NEW (or MARK AS NEW).</p></div>
+    <div><b>Switch warning after confirm</b><p>Once a factory is confirmed as new (Mark as New or Create New), clicking SELECT EXISTING, CREATE NEW or MARK AS NEW first opens Switch Factory Choice? (3.03w1–w3 for 1st tier, 3.04w1–w3 for 2nd tier). It warns that the entered details and temporary code are cleared. CANCEL keeps the choice; SWITCH TO … opens the chosen pop-up. A confirmed existing factory (3.04g) switches without the warning, because no data is lost.</p></div>
+    <div><b>Decision box layout</b><p>The confirmed bar reads Confirmed - code (for example Confirmed - F-TEMP-0042), fills the box width and keeps UNDO on the right. Box titles are in title case and centred with their chip. On match cards the match chip sits under the factory name, so long names wrap.</p></div>
+    <div><b>2nd Tier label</b><p>The tier chip reads 2nd Tier everywhere (no "· New Site").</p></div>
+    <div><b>Supplier statuses</b><p>The supplier has its own status names (Supplier sees column). The first is Need to Fill Application (1b.09n, FILL APPLICATION opens the form). 1b.01 Factory List shows one row per supplier status; clicking the status opens that task, not the factory overview. New task pages 1b.09i–1b.09r cover the states that had no supplier page.</p></div>
+    <div><b>Clickable prototype</b><p>32 Figma prototype flows, one per role task (plus end-to-end), listed at the top of this page. Each step in the role flow has a ▶ Play link.</p></div>
+    <div><b>Supplier List for the ethical team</b><p>E.01 is now the SVSI Supplier List with factories expanded and an Ethical Task Status column; no grey helper text under the status. E.01m is the map view.</p></div>
+    <div><b>Application data on every review page</b><p>3.03, 3.04 and 3.05 pages show the supplier's application in a collapsed Application Data block; it opens 3.03x with all sections expanded.</p></div>
+    <div><b>Reasons on both sides</b><p>Return (3.03t) and Reject (3.03r) dialogs have a required reason field. The ethical task (E.04 / E.06) and the supplier Application tab both show the reason, who and when.</p></div>
+    <div><b>Supplier Application tab</b><p>New supplier pages: 1b.08 Returned → 1b.08e Edit (answers kept, flagged section marked) → 1b.04r Resubmit (Resubmit Reason required) → 1b.08b Resubmitted (read only) → 1b.08c Returned again (round 2), 1b.08r Rejected, 1b.08a Accepted. The lab sees nothing yet.</p></div>
+    <div><b>Save draft everywhere</b><p>Leaving any form with unsaved changes opens You Have Unsaved Changes (CANCEL / DISCARD CHANGES / SAVE DRAFT), copied from SVSI. Draft pages: 1b.06d, 1b.08d, E.03d, 3.01b, S.01d, 4.08d, L.03d.</p></div>
+    <div><b>Invoice tab like SVSI</b><p>4.12 / 4.13 / 4.14 rebuilt: header with payment status and task status, Inspection Plan table, Other Details, Last Updated, Payer Details. Draft = Pending Invoice, Unpaid = Pending Payment, Paid = Pending Audit.</p></div>
+    <div><b>Destructive actions red</b><p>REMOVE buttons and trash icons use the Danger colour. E.05 read-only form keeps only BACK TO TASKS.</p></div>
+  </div>
+</section>
+</div>
+
+<script>
+const FIG='https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=';
+const STAGES=[['Application','Supplier applies'],['Factory check','Ethical team reviews'],['Kick start','Audit type and lab'],['Quotation','A and B only'],['Invoice','A and B only'],['Audit / review','Lab or ethical team'],['Report & CAP','Findings and fixes'],['Conclusion','Result on the factory']];
+const ROLES=[['buyer','Buyer','WBA / Boots buyer'],['supplier','Supplier','Supplier portal'],['ethical','Ethical team','TBG · incl. ethical manager'],['lab','Lab','UL, TUV SUD …'],['account','ICW account','Account system']];
+// [role, stage index, title, frames [[label,id]], status set, paths]
+const STEPS=[
+ ['buyer',0,'Send the application e-mail to a new supplier',[['1a.02','7965-6557']],[],'ABCD'],
+ ['supplier',0,'Factory List: one Ethical Task Status per factory; click the status to open that task. First status: Need to Fill Application',[['1b.01','7965-6602'],['1b.01m','8205-9607'],['1b.01mh','8435-16933'],['1b.09n','8427-15696']],[['Need to Fill Application','Warning']],'ABCD'],
+ ['supplier',0,'Start an ethical application from the factory profile',[['1b.03','8286-17303']],[],'ABCD'],
+ ['supplier',0,'Fill in 1st and 2nd tier, then submit',[['1b.04','8306-13092'],['1b.06','7979-2918']],[['Pending Review','Warning']],'ABCD'],
+ ['supplier',0,'Leave with unsaved changes: Unsaved Changes pop-up, SAVE DRAFT shows Draft on the Application tab',[['1b.04q','8389-18742'],['1b.06d','8389-18812']],[['Draft','Neutral']],'ABCD'],
+ ['ethical',1,'Open the factory task, view the form, review the application: every 1st / 2nd tier decision offers confirm, mark as new, create new or select existing (save a review draft if needed)',[['E.03','8334-14734'],['E.05','8334-14143'],['3.03','7967-6258'],['3.03q','8389-19636'],['E.03d','8389-19706']],[],'ABCD'],
+ ['ethical',1,'Accept the application',[['3.05','7967-6624'],['4.02a','8366-17971']],[['Wait For Kick Start','Neutral']],'ABCD'],
+ ['ethical',1,'Return to the supplier: Return Reason required',[['3.03t','8366-18681'],['E.04','8371-18403']],[['Waiting For Supplier Resubmit','Warning']],'ABCD'],
+ ['ethical',1,'Reject: Reject Reason required, application closed',[['3.03r','8179-9615'],['E.06','8366-18181']],[['Application · Rejected','Error']],'ABCD'],
+ ['supplier',1,'Read the return reason, edit (answers kept, flagged section marked), save a draft if needed',[['1b.08','8382-13945'],['1b.08e','8382-14247'],['1b.08q','8389-19119'],['1b.08d','8389-19189']],[],'ABCD'],
+ ['supplier',1,'Resubmit with a Resubmit Reason; wait read only; may be returned again (round 2)',[['1b.04r','8374-14227'],['1b.08b','8382-14820'],['1b.08c','8382-15107']],[['Resubmitted · Pending Review','Warning']],'ABCD'],
+ ['ethical',1,'Review the resubmitted application (return and resubmit reasons both shown)',[['E.03b','8374-13858']],[],'ABCD'],
+ ['supplier',1,'See the result: rejected (reason, START NEW APPLICATION) or accepted',[['1b.08r','8382-15406'],['1b.08a','8382-15701']],[],'ABCD'],
+ ['ethical',2,'Kick start: audit type, deadline, who does each step, lab',[['4.02','7984-2572'],['4.03','7967-10667']],[['Waiting For Lab Quote','Info']],'ABCD'],
+ ['lab',3,'Open the task from the audit list (SVSI + Ethical Audit), submit a quotation',[['L.00','8368-14084'],['L.01','8343-12423']],[['TBG Reviewing Quote','Warning']],'AB'],
+ ['ethical',3,'Review the lab quote, type the markup, release to supplier',[['4.04b','8169-10112']],[['Waiting For Supplier Accept','Warning']],'AB'],
+ ['supplier',3,'Accept or reject the quotation',[['4.05','8068-6965'],['4.05x','8255-10875']],[['Quote Confirmed','Success'],['Quotation Rejected','Error']],'AB'],
+ ['account',4,'Invoice Draft (Invoice tab: Inspection Plan, Other Details, Payer Details)',[['4.12','8264-11556']],[['Pending Invoice','Neutral']],'AB'],
+ ['supplier',4,'Invoice issued, Unpaid: pay ICW by the due date',[['4.13','8264-11826']],[['Pending Payment','Warning']],'AB'],
+ ['account',4,'Payment received: invoice Paid → lab task opens',[['4.14','8264-12092'],['4.15','8264-12347']],[['Pending Audit','Info']],'AB'],
+ ['lab',5,'Pending Audit → start the onsite audit',[['L.02','8343-12787']],[['Audit In Progress','Info']],'A'],
+ ['supplier',5,'Upload documents (desktop review) or the existing report',[['S.01','8343-13944'],['S.01d','8394-19442'],['S.02','8343-14270']],[['Pending Supplier Documents','Warning'],['Desktop Review In Progress','Info']],'BCD'],
+ ['lab',5,'Desktop review of the supplier documents',[['L.03b','8343-13370']],[['Desktop Review In Progress','Info']],'B'],
+ ['ethical',5,'Desktop review in house (no quotation)',[['T.02','8343-14858']],[['Report Submitted','Warning']],'C'],
+ ['lab',6,'Upload the audit / desktop report (or the revised report)',[['L.03','8343-13077'],['L.03d','8394-20046'],['L.04','8343-13663']],[['Report Submitted','Warning']],'AB'],
+ ['ethical',6,'Review the report: accept, request revised report, or NC → CAP',[['T.01','8343-14555'],['4.07','8172-9524']],[['Request Revised Report','Error'],['CAP Requested','Error']],'ABC'],
+ ['ethical',6,'Review the existing report',[['4.03b','8259-11423']],[['Need Conclusion','Warning']],'D'],
+ ['supplier',6,'Submit CAP',[['4.08','8172-9777'],['4.08d','8394-19744']],[['CAP Submitted','Warning']],'ABCD'],
+ ['ethical',6,'Review CAP (up to 3 rounds)',[['4.09','8172-10030']],[['Need Conclusion','Warning']],'ABCD'],
+ ['ethical',7,'Conclusion: accept, conditional, reject or temporary approval',[['4.10','8256-10993'],['4.10t','8256-11309'],['4.11','8256-11625'],['4.11r','8364-16696']],[['Approve','Success'],['Temporary Approval','Warning'],['Rejected','Error']],'ABCD'],
+ ['buyer',7,'See the result on the Ethical Home dashboard',[['E.00','8331-13854']],[],'ABCD'],
+];
+const PATHS=[
+ ['A','Factory audit · onsite','Lab quote → TBG markup → supplier accepts → invoice → lab audits onsite → report → CAP → conclusion',['Lab quotes, TBG adds markup','Supplier accepts, ICW invoices, supplier pays','Lab: Pending Audit → In Progress','Lab uploads report <span>(Request Revised Report loops back)</span>','CAP if NC found','Ethical manager concludes']],
+ ['B','Desktop review · third party','Same quote and invoice as A, but the supplier uploads documents and the lab reviews them remotely',['Lab quotes, TBG adds markup','Supplier accepts and pays','Supplier uploads documents','Lab desktop review, uploads report','CAP if needed','Conclusion']],
+ ['C','Desktop review · in house','No lab and no quotation: the TBG ethical team reviews the supplier documents itself',['Supplier uploads documents','Ethical team desktop review','CAP if needed','Conclusion']],
+ ['D','Accept an existing report','No new audit: a third-party or first-party report replaces it, only if the customer accepts it',['Supplier uploads the existing report <span>(or pick one from review history)</span>','Ethical team reviews it on 4.03b','Conclusion']],
+];
+const STATUS=[
+ ['Application',[['Not Applied','Neutral','No application yet','Factory has never applied','ABCD',''],['Draft','Neutral','Application · Supplier','Supplier saves a draft (Unsaved Changes pop-up or SAVE DRAFT)','ABCD','1b.06d|8389-18812'],['Pending Review','Warning','Application · Ethical team','Supplier submits','ABCD','E.03|8334-14734'],['Waiting For Supplier Resubmit','Warning','Application · Supplier','Ethical team returns it on 3.03t with a Return Reason','ABCD','E.04|8371-18403'],['Resubmitted · Pending Review','Warning','Application · Ethical team','Supplier resubmits on 1b.04r with a Resubmit Reason','ABCD','E.03b|8374-13858'],['Application · Rejected','Error','Closed · new application needed','Ethical team rejects on 3.03r with a Reject Reason','ABCD','E.06|8366-18181']]],
+ ['Kick start',[['Wait For Kick Start','Neutral','Kick Start · Ethical team','Application accepted on 3.05 (Accepted chip on the factory)','ABCD','4.02a|8366-17971']]],
+ ['Quotation',[['Waiting For Lab Quote','Info','Quotation · Lab','Kick start sent to the lab','AB','4.04|8060-13986'],['TBG Reviewing Quote','Warning','Quotation · Ethical team','Lab submits a quote','AB','4.04b|8169-10112'],['Waiting For Supplier Accept','Warning','Quotation · Supplier','TBG releases the quote with markup','AB','4.05|8068-6965'],['Quotation Rejected','Error','Quotation · Ethical team','Supplier rejects the quote','AB','4.05x|8255-10875']]],
+ ['Invoice',[['Pending Invoice','Neutral','Invoice · ICW account','Quote confirmed · payment status Draft','AB','4.12|8264-11556'],['Pending Payment','Warning','Invoice · Supplier','Invoice issued · payment status Unpaid','AB','4.13|8264-11826']]],
+ ['Audit / review',[['Pending Audit','Info','Audit · Lab','Payment status Paid','AB','4.14|8264-12092'],['Audit In Progress','Info','Audit · Lab','Lab starts the audit','A','L.03|8343-13077'],['Pending Supplier Documents','Warning','Desktop review · Supplier','Desktop review or existing report chosen','BCD','S.01|8343-13944'],['Desktop Review In Progress','Info','Desktop review · Lab / Ethical','Supplier documents received','BC','L.03b|8343-13370']]],
+ ['Report & CAP',[['Report Submitted','Warning','Report review · Ethical team','Lab or reviewer uploads the report','ABC','T.01|8343-14555'],['Request Revised Report','Error','Report · Lab','Ethical team sends the report back','AB','L.04|8343-13663'],['CAP Requested','Error','CAP · Supplier','NC found in the report','ABCD','4.07|8172-9524'],['CAP Submitted','Warning','CAP review · Ethical team','Supplier submits CAP','ABCD','4.09|8172-10030']]],
+ ['Conclusion',[['Need Conclusion','Warning','Conclusion · Ethical manager','Report or CAP accepted','ABCD','4.10|8256-10993'],['Approve','Success','Accepted · valid until date','Accepted','ABCD','4.11|8256-11625'],['Approve · Conditional','Success','Conditional · CAP follow-up','Conditional accept','ABCD','4.11|8256-11625'],['Temporary Approval','Warning','Valid until date','Temporary approval','ABCD','4.10t|8256-11309'],['Rejected','Error','Rejected · date','Conclusion = Reject','ABCD','4.11r|8364-16696']]],
+];
+const PROTO=id=>`https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=${id}&starting-point-node-id=${id.replace('-','%3A')}&scaling=scale-down-width&content-scaling=fixed`;
+const FLOWS=[
+ ['Buyer',[['Buyer 1','Send the application e-mail to a new supplier','7965-6557']]],
+ ['Supplier',[['Supplier 1','Factory list → start ethical application','7965-6602'],['Supplier 2','Factory list · map view','8205-9607'],['Supplier 3','Fill 1st & 2nd tier → save draft / submit','8306-13092'],['Supplier 4','Application returned → edit → resubmit','8382-13945'],['Supplier 5','Application rejected','8382-15406'],['Supplier 6','Application accepted','8382-15701'],['Supplier 7','Accept or reject the quotation','8068-6965'],['Supplier 8','Invoice unpaid → pay','8264-11826'],['Supplier 9','Upload documents / existing report','8343-13944'],['Supplier 10','Submit CAP','8172-9777']]],
+ ['Ethical team',[['Ethical 1','Home dashboard','8331-13854'],['Ethical 2','Supplier list (factories expanded)','8329-13639'],['Ethical 3','Supplier list · map view','8352-13597'],['Ethical 4','Open task → view application (read only)','8334-14734'],['Ethical 5','Review application → accept / return / reject','7967-6258'],['Ethical 6','Review resubmitted application','8374-13858'],['Ethical 7','Kick start → audit type and lab','7984-2572'],['Ethical 8','Review lab quote → markup → release','8169-10112'],['Ethical 9','Desktop review in house','8343-14858'],['Ethical 10','Review report → accept / revise / CAP','8343-14555'],['Ethical 11','Review existing report','8259-11423'],['Ethical 12','Review CAP','8172-10030'],['Ethical 13','Conclusion → approve / temporary / reject','8256-10993']]],
+ ['Lab',[['Lab 1','Audit list (SVSI + Ethical Audit)','8368-14084'],['Lab 2','Submit quotation','8343-12423'],['Lab 3','Onsite audit','8343-12787'],['Lab 4','Desktop review','8343-13370'],['Lab 5','Upload report','8343-13077'],['Lab 6','Upload revised report','8343-13663']]],
+ ['ICW account',[['ICW 1','Invoice draft → issued → paid','8264-11556']]],
+];
+function renderProto(){document.getElementById('e2e').href=PROTO('7965-6492');
+ document.getElementById('protoidx').innerHTML=FLOWS.map(([r,fs])=>`<div class="pgroup"><h3>${r}<small>${fs.length} flow${fs.length>1?'s':''}</small></h3>${fs.map(([k,n,id])=>`<a class="play" href="${PROTO(id)}" target="_blank" rel="noopener"><span class="tri" aria-hidden="true"></span><span><span class="pk">${k}</span> ${esc(n)}</span></a>`).join('')}</div>`).join('');}
+const SUP={'Not Applied':['Need to Fill Application','Warning','1b.09n','8427-15696'],'Draft':['Draft','Warning','1b.06d','8389-18812'],'Pending Review':['Pending Review','Info','1b.06','7979-2918'],'Waiting For Supplier Resubmit':['Application Returned','Warning','1b.08','8382-13945'],'Resubmitted · Pending Review':['Resubmitted · Pending Review','Info','1b.08b','8382-14820'],'Application · Rejected':['Application Rejected','Error','1b.08r','8382-15406'],'Wait For Kick Start':['Application Accepted','Success','1b.08a','8382-15701'],'Waiting For Lab Quote':['Application Accepted','Success','1b.08a','8382-15701'],'TBG Reviewing Quote':['Application Accepted','Success','1b.08a','8382-15701'],'Waiting For Supplier Accept':['Pending Quotation Accept','Warning','4.05','8068-6965'],'Quotation Rejected':['Quotation Rejected','Error','4.05x','8255-10875'],'Pending Invoice':['Pending Invoice','Info','1b.09i','8427-15968'],'Pending Payment':['Pending Payment','Warning','4.13','8264-11826'],'Pending Audit':['Pending Audit','Info','4.14','8264-12092'],'Audit In Progress':['Audit In Progress','Info','1b.09u','8427-16240'],'Pending Supplier Documents':['Pending Upload Documents','Warning','S.01','8343-13944'],'Desktop Review In Progress':['Desktop Review In Progress','Info','S.02','8343-14270'],'Report Submitted':['Report Under Review','Info','1b.09v','8427-16512'],'Request Revised Report':['Report Under Review','Info','1b.09v','8427-16512'],'CAP Requested':['CAP Required','Warning','4.08','8172-9777'],'CAP Submitted':['CAP Under Review','Info','1b.09c','8427-16784'],'Need Conclusion':['Pending Result','Info','1b.09p','8427-17056'],'Approve':['Approved','Success','1b.09a','8427-17328'],'Approve · Conditional':['Approved · Conditional','Success','1b.09k','8427-17588'],'Temporary Approval':['Temporary Approval','Warning','1b.09t','8427-17857'],'Rejected':['Rejected','Error','1b.09r','8427-18130']};
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const chip=([l,t])=>`<span class="st"><span class="dot ${t}"></span>${esc(l)}</span>`;
+function renderLanes(){const g=document.getElementById('lanes');let h='<div class="head">Role</div>'+STAGES.map(([a,b])=>`<div class="head"><b>${a}</b>${b}</div>`).join('');
+ for(const [rk,rn,rs] of ROLES){h+=`<div class="role">${rn}<small>${rs}</small></div>`;
+  for(let s=0;s<STAGES.length;s++){const items=STEPS.filter(x=>x[0]===rk&&x[1]===s);h+='<div class="cell">'+items.map(x=>{const todo=!x[3].length;
+   return `<div class="step${todo?' todo':''}" data-paths="${x[5]}">${todo?'<span class="tag">To build</span>':''}<div class="t">${esc(x[2])}</div>${x[4].length?'<div class="meta">'+x[4].map(chip).join('')+'</div>':''}<div class="meta">${x[3].length?`<a class="pl" href="${PROTO(x[3][0][1])}" target="_blank" rel="noopener">▶ Play</a>`:''}${x[3].map(([l,id])=>`<a href="${FIG+id}" target="_blank" rel="noopener">${l}</a>`).join('')}<span class="paths">${x[5].split('').join(' ')}</span></div></div>`;}).join('')+'</div>';}}
+ g.innerHTML=h;}
+function renderPaths(){document.getElementById('paths').innerHTML=PATHS.map(([c,n,d,st])=>`<div class="path"><span class="code">${c}</span><h3>${n}</h3><p class="lede">${d}</p><ol>${st.map(s=>`<li>${s}</li>`).join('')}</ol></div>`).join('');}
+function renderStatus(){let i=0,h='';for(const [stage,rows] of STATUS){h+=`<tr class="stage"><td colspan="7">${stage}</td></tr>`;for(const [l,t,who,when,p,fr] of rows){i++;const [fl,fid]=fr?fr.split('|'):['',''];
+ const sp=SUP[l];h+=`<tr><td class="n">${i}</td><td>${chip([l,t])}${fr?'':'<span class="new">NO SCREEN YET</span>'}</td><td>${sp?chip([sp[0],sp[1]])+` <a href="${FIG+sp[3]}" target="_blank" rel="noopener">${sp[2]}</a>`:'—'}</td><td>${esc(who)}</td><td>${esc(when)}</td><td class="paths">${p.split('').join(' ')}</td><td>${fr?`<a href="${FIG+fid}" target="_blank" rel="noopener">${fl}</a>`:'—'}</td></tr>`;}}
+ document.querySelector('#status tbody').innerHTML=h;}
+renderProto();renderLanes();renderPaths();renderStatus();
+document.querySelectorAll('[data-path]').forEach(b=>b.addEventListener('click',()=>{const p=b.dataset.path;document.querySelectorAll('[data-path]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));
+ document.querySelectorAll('.step').forEach(s=>s.classList.toggle('dim',p!=='ALL'&&!s.dataset.paths.includes(p)));}));
+</script>
