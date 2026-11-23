@@ -1,11 +1,12 @@
 # TBG Ethical & SQA: Role Flow and Status Guide
 
-Last updated: 22/Nov/2026 · Owner: Marco (ICW design)
+Last updated: 23/Nov/2026 · Owner: Marco (ICW design)
 
 | What | Link |
 | --- | --- |
 | Figma file (source of truth) | [TBG Ethical & SQA, page "TBG / Ethical & SQA 2026 (NOW)"](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7967-2548) |
 | Interactive role-flow webview (v8, 23/Nov/2026) | [claude.ai/artifact/Eh4B3nJSS5tiF2KWsC2VEs](https://claude.ai/artifact/Eh4B3nJSS5tiF2KWsC2VEs). Clickable prototype by role, supplier status column, role lanes by stage, audit-type filter, 26-status register. |
+| GitHub (public) | Repo [marconip2026/tbg-ethical-flow](https://github.com/marconip2026/tbg-ethical-flow) · live page [marconip2026.github.io/tbg-ethical-flow](https://marconip2026.github.io/tbg-ethical-flow/). Same webview as the artifact; pushed after each update. |
 | Clickable Figma prototype (end-to-end) | [Play in Figma](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=7965-6492&starting-point-node-id=7965%3A6492&scaling=scale-down-width&content-scaling=fixed). All 32 flows are listed under "Clickable prototype, by role". |
 | Screenshots | `img/` next to this file (00–20) |
 
