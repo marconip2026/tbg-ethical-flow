@@ -1,11 +1,11 @@
 # TBG Ethical & SQA: Role Flow and Status Guide
 
-Last updated: 23/Nov/2026 · Owner: Marco (ICW design)
+Last updated: 24/Nov/2026 · Owner: Marco (ICW design)
 
 | What | Link |
 | --- | --- |
 | Figma file (source of truth) | [TBG Ethical & SQA, page "TBG / Ethical & SQA 2026 (NOW)"](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7967-2548) |
-| Interactive role-flow webview (v8, 23/Nov/2026) | [claude.ai/artifact/Eh4B3nJSS5tiF2KWsC2VEs](https://claude.ai/artifact/Eh4B3nJSS5tiF2KWsC2VEs). Clickable prototype by role, supplier status column, role lanes by stage, audit-type filter, 26-status register. |
+| Interactive role-flow webview (v9, 24/Nov/2026) | [claude.ai/artifact/Eh4B3nJSS5tiF2KWsC2VEs](https://claude.ai/artifact/Eh4B3nJSS5tiF2KWsC2VEs). Clickable prototype by role, supplier status column, role lanes by stage, audit-type filter, 26-status register. |
 | GitHub (public) | Repo [marconip2026/tbg-ethical-flow](https://github.com/marconip2026/tbg-ethical-flow) · live page [marconip2026.github.io/tbg-ethical-flow](https://marconip2026.github.io/tbg-ethical-flow/). Same webview as the artifact; pushed after each update. |
 | Clickable Figma prototype (end-to-end) | [Play in Figma](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=7965-6492&starting-point-node-id=7965%3A6492&scaling=scale-down-width&content-scaling=fixed). All 32 flows are listed under "Clickable prototype, by role". |
 | Screenshots | `img/` next to this file (00–20) |
@@ -49,7 +49,7 @@ Each link opens the Figma prototype at the start of that flow. The flows are als
 | Buyer | **Buyer 1** · Send the application e-mail to a new supplier | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=7965-6557&starting-point-node-id=7965%3A6557&scaling=scale-down-width&content-scaling=fixed) |
 | Supplier | **Supplier 1** · Factory list → start ethical application | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=7965-6602&starting-point-node-id=7965%3A6602&scaling=scale-down-width&content-scaling=fixed) |
 | Supplier | **Supplier 2** · Factory list · map view | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8205-9607&starting-point-node-id=8205%3A9607&scaling=scale-down-width&content-scaling=fixed) |
-| Supplier | **Supplier 3** · Fill 1st & 2nd tier → save draft / submit | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8306-13092&starting-point-node-id=8306%3A13092&scaling=scale-down-width&content-scaling=fixed) |
+| Supplier | **Supplier 3** · Fill registered & subcontracting factories → save draft / submit | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8306-13092&starting-point-node-id=8306%3A13092&scaling=scale-down-width&content-scaling=fixed) |
 | Supplier | **Supplier 4** · Application returned → edit → resubmit | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8382-13945&starting-point-node-id=8382%3A13945&scaling=scale-down-width&content-scaling=fixed) |
 | Supplier | **Supplier 5** · Application rejected | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8382-15406&starting-point-node-id=8382%3A15406&scaling=scale-down-width&content-scaling=fixed) |
 | Supplier | **Supplier 6** · Application accepted | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8382-15701&starting-point-node-id=8382%3A15701&scaling=scale-down-width&content-scaling=fixed) |
@@ -85,7 +85,7 @@ Each link opens the Figma prototype at the start of that flow. The flows are als
 | Role | Who | What they do | Where they start |
 | --- | --- | --- | --- |
 | **Buyer** | WBA / Boots buyer | Sends the application e-mail to a new supplier, and later sees the result | [1a.01 Login](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7965-6492) |
-| **Supplier** | Supplier user and its 1st-tier and 2nd-tier factories | Fills in, saves and submits the application; reads return / reject reasons; edits and resubmits; accepts the quotation; pays the invoice; uploads documents; submits the CAP | [1b.01 Factory List](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7965-6602) → Factory → Tasks → Ethical |
+| **Supplier** | Supplier user, its registered factory and its subcontracting factories | Fills in, saves and submits the application; reads return / reject reasons; edits and resubmits; accepts the quotation; pays the invoice; uploads documents; submits the CAP | [1b.01 Factory List](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7965-6602) → Factory → Tasks → Ethical |
 | **Ethical team (TBG)** | TBG ethical team, including the ethical manager | Reviews the application (accept, return or reject, with a reason); kicks start the audit; enters the quote markup; reviews the report and CAP; gives the conclusion | [E.00 Ethical Home](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8331-13854) |
 | **Lab** | UL, TÜV SÜD and other labs | Quotes, runs the audit or desktop review, uploads and revises the report | [L.00 Audit List](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8368-14084) (SVSI + Ethical Audit) |
 | **ICW account** | Account system | Issues the invoice and confirms payment | — |
@@ -142,7 +142,7 @@ Lanes from top to bottom: Buyer, Supplier, Ethical team, Lab, ICW account.
 
 - **Buyer** sends the application e-mail to a new supplier: [1a.02](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7965-6557).
 - **Supplier: [1b.03](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8286-17303).** Starts an ethical application from the factory profile.
-- **Supplier: [1b.04](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8306-13092).** Fills in 1st-tier and 2nd-tier details. The form opens in its empty default state; the [front-end note](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8360-13640) explains the jumping sections.
+- **Supplier: [1b.04](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8306-13092).** Fills in registered factory and subcontracting factory details. The form opens in its empty default state; the [front-end note](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8360-13640) explains the jumping sections.
 - **Supplier submits.** [1b.06](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7979-2918) shows Pending Review.
 - **Save draft.** [1b.06d](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8389-18812): the task status is Draft, and the Application tab shows Last Saved and Progress.
 
@@ -151,7 +151,7 @@ Lanes from top to bottom: Buyer, Supplier, Ethical team, Lab, ICW account.
 
 ### 3 · Factory check: accept, return or reject
 
-- **Ethical team: [E.03 Pending Review](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8334-14734)** → [3.03 Factory Review](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7967-6258). The review checks the 1st and 2nd tier against the factory database and shows the Review History.
+- **Ethical team: [E.03 Pending Review](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8334-14734)** → [3.03 Factory Review](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7967-6258). The review checks the registered and subcontracting factories against the factory database and shows the Review History.
 - **Accept:** [3.05](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7967-6624) → [4.02a Accepted](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8366-17971). The factory header gets an "Accepted Lab" chip. The supplier sees [1b.08a](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-15701).
 - **Return:** [3.03t](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8366-18681) has a **required Return Reason** → [E.04 Waiting For Supplier Resubmit](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8371-18403). On the supplier side:
   1. [1b.08 Returned](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-13945) shows the reason.
@@ -161,7 +161,7 @@ Lanes from top to bottom: Buyer, Supplier, Ethical team, Lab, ICW account.
   5. The ethical team sees [E.03b Resubmitted](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8374-13858), which shows both reasons.
   6. The loop can repeat: [1b.08c Returned again (round 2)](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-15107).
 - **Reject:** [3.03r](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8179-9615) has a **required Reject Reason** → [E.06 Application Rejected](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8366-18181). The supplier sees [1b.08r](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-15406), with the application closed and START NEW APPLICATION.
-- **Decision options on every tier.** On 1st- and 2nd-tier review pages the decision box always offers the other paths:
+- **Decision options on every factory.** On registered and subcontracting factory review pages the decision box always offers the other paths:
 
   | State | Buttons |
   | --- | --- |
@@ -171,13 +171,14 @@ Lanes from top to bottom: Buyer, Supplier, Ethical team, Lab, ICW account.
   | Confirmed as new (3.03c, 3.03n2, 3.04e, 3.04e2, 3.04f) | UNDO · SELECT EXISTING · CREATE NEW |
   | Confirmed existing (3.04g) | UNDO · MARK AS NEW · CREATE NEW |
 
-  The tier chip always reads 2nd Tier.
+  The factory chip always reads Subcontracting Factory.
+- **Registered and subcontracting factory (no tiers).** Sarah asked to drop the tier wording. 1st tier → **Registered Factory**, 2nd tier → **Subcontracting Factory** on every screen, pop-up, tab, chip, button and frame name (e.g. ADD SUBCONTRACTING FACTORY, tabs "Registered · Factory C" / "Subcontracting · …"). The Type column in Review History shows Registered / Subcontracting. Codes stay the same (F-code for registered, T-code for subcontracting). Impact: wording only, every role sees the new names; no flow or data change.
 - **Switch warning after confirm.** When a factory is confirmed as new, SELECT EXISTING, CREATE NEW and MARK AS NEW first open **Switch Factory Choice?**. It warns that the Mark as New / Create New details and the temporary code are cleared and cannot be restored. CANCEL keeps the choice; SWITCH TO … opens the chosen pop-up. A confirmed existing factory (3.04g) switches without the warning.
 
-  | Tier | Select Existing | Create New | Mark as New |
+  | Factory | Select Existing | Create New | Mark as New |
   | --- | --- | --- | --- |
-  | 1st tier | [3.03w1](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8447-17702) | [3.03w2](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8447-17737) | [3.03w3](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8447-17772) |
-  | 2nd tier | [3.04w1](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8447-17808) | [3.04w2](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8447-17843) | [3.04w3](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8447-17878) |
+  | Registered | [3.03w1](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8447-17702) | [3.03w2](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8447-17737) | [3.03w3](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8447-17772) |
+  | Subcontracting | [3.04w1](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8447-17808) | [3.04w2](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8447-17843) | [3.04w3](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8447-17878) |
 
   Only the ethical team is affected. The supplier, lab and ICW admin see nothing, because the factory code is created only when the application is accepted.
 - **Decision box layout.** The confirmed bar reads *Confirmed - code* (for example Confirmed - F-TEMP-0042), fills the box width and keeps UNDO on the right. Box titles are in title case (Confirmed as New Factory) and centred with their chip. On match cards the match chip sits under the factory name, so long names wrap.
