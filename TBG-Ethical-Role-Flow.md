@@ -5,7 +5,7 @@ Last updated: 24/Nov/2026 · Owner: Marco (ICW design)
 | What | Link |
 | --- | --- |
 | Figma file (source of truth) | [TBG Ethical & SQA, page "TBG / Ethical & SQA 2026 (NOW)"](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7967-2548) |
-| Interactive role-flow webview (v9, 24/Nov/2026) | [claude.ai/artifact/Eh4B3nJSS5tiF2KWsC2VEs](https://claude.ai/artifact/Eh4B3nJSS5tiF2KWsC2VEs). Clickable prototype by role, supplier status column, role lanes by stage, audit-type filter, 26-status register. |
+| Interactive role-flow webview (v10, 24/Nov/2026) | [claude.ai/artifact/Eh4B3nJSS5tiF2KWsC2VEs](https://claude.ai/artifact/Eh4B3nJSS5tiF2KWsC2VEs). Clickable prototype by role, supplier status column, role lanes by stage, audit-type filter, 26-status register. |
 | GitHub (public) | Repo [marconip2026/tbg-ethical-flow](https://github.com/marconip2026/tbg-ethical-flow) · live page [marconip2026.github.io/tbg-ethical-flow](https://marconip2026.github.io/tbg-ethical-flow/). Same webview as the artifact; pushed after each update. |
 | Clickable Figma prototype (end-to-end) | [Play in Figma](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=7965-6492&starting-point-node-id=7965%3A6492&scaling=scale-down-width&content-scaling=fixed). All 32 flows are listed under "Clickable prototype, by role". |
 | Screenshots | `img/` next to this file (00–20) |
@@ -39,6 +39,28 @@ Styling: WBA design system. Primary blue `#003DA5`, Roboto, 2px radius on contro
 
 ---
 
+## v10 · Questionnaire List (24/Nov/2026)
+
+"Application list" is now **Questionnaire list**. The application no longer has its own task pages before kick start; it lives in a table.
+
+- **Supplier · [1b.01 Factory List](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7965-6602).** A **Questionnaire List** table sits under the factory table ([table](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8539-17712)). Rows by status: Need to Fill Application, Draft, Pending Review, Application Returned, Resubmitted · Pending Review, Application Rejected, Application Accepted. **FILL**, or clicking a Draft or Returned row, opens [1b.04](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8306-13092); SUBMIT (and SAVE DRAFT) returns to the list. There is no detail page.
+- **Ethical team · [E.01 Supplier List](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8329-13639).** A Questionnaire List table under the factory table ([table](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8542-17784)). A Pending Review or Resubmitted row opens [3.03 Factory Review](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7967-6258) directly; Returned and Rejected rows open the read-only form [E.05](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8334-14143); the Accepted row opens 4.02q.
+- **Return / Reject.** [3.03t](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8366-18681) and [3.03r](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8179-9615) go back to E.01; only the status in the Questionnaire List changes.
+- **Factory tables.** In both factory tables every status before **Wait For Kick Start** shows `/` in Ethical Task Status.
+- **After accept.** [4.02a](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8366-17971) has a Questionnaire card in the Cycle Rail. Clicking it opens [4.02q Questionnaire Selected](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8545-17846): the card is active and the right card shows the questionnaire information with VIEW QUESTIONNAIRE FORM (→ E.05). The Ethical card goes back to 4.02a.
+- **Renames.** E.00 cards: Questionnaire List, Questionnaire & Kick Start. The `Application & Kick Start` sub tab on 38 post-accept task pages reads **Kick Start**.
+- **Not used (unlinked, kept in Figma).** 1b.03, 1b.06, 1b.06d, 1b.09n, 1b.08, 1b.08a, 1b.08b, 1b.08c, 1b.08d, 1b.08e, 1b.08q, 1b.08r, E.03, E.03b, E.04, E.06. Their names and captions start with "Not used ·".
+
+| Role | What changes | Other side of the hand-off |
+| --- | --- | --- |
+| Supplier | Questionnaire List on 1b.01; FILL / Draft / Returned open 1b.04; SUBMIT back to the list | Ethical team sees the row at Pending Review on E.01 |
+| Ethical team | Questionnaire List on E.01; row opens 3.03; Return / Reject only change the row status | Supplier sees Application Returned / Rejected in its Questionnaire List; Returned row opens the form again |
+| Ethical team | Accepted row and the 4.02a Questionnaire card open 4.02q (VIEW QUESTIONNAIRE FORM) | Supplier sees Application Accepted; factory status becomes Wait For Kick Start on both sides |
+| Buyer | E.00 cards renamed (Questionnaire List, Questionnaire & Kick Start) | No change to the application e-mail (1a) |
+| Lab, ICW account | Kick Start tab label only | None |
+
+---
+
 ## Clickable prototype, by role
 
 Each link opens the Figma prototype at the start of that flow. The flows are also set as flow starting points on the Figma page, so they show in the prototype viewer's flow list. The top-bar role switch on every screen goes to that role's home page.
@@ -50,9 +72,7 @@ Each link opens the Figma prototype at the start of that flow. The flows are als
 | Supplier | **Supplier 1** · Factory list → start ethical application | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=7965-6602&starting-point-node-id=7965%3A6602&scaling=scale-down-width&content-scaling=fixed) |
 | Supplier | **Supplier 2** · Factory list · map view | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8205-9607&starting-point-node-id=8205%3A9607&scaling=scale-down-width&content-scaling=fixed) |
 | Supplier | **Supplier 3** · Fill registered & subcontracting factories → save draft / submit | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8306-13092&starting-point-node-id=8306%3A13092&scaling=scale-down-width&content-scaling=fixed) |
-| Supplier | **Supplier 4** · Application returned → edit → resubmit | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8382-13945&starting-point-node-id=8382%3A13945&scaling=scale-down-width&content-scaling=fixed) |
-| Supplier | **Supplier 5** · Application rejected | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8382-15406&starting-point-node-id=8382%3A15406&scaling=scale-down-width&content-scaling=fixed) |
-| Supplier | **Supplier 6** · Application accepted | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8382-15701&starting-point-node-id=8382%3A15701&scaling=scale-down-width&content-scaling=fixed) |
+| Supplier | **Supplier 4** · Questionnaire List → returned row → edit → resubmit | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=7965-6602&starting-point-node-id=7965%3A6602&scaling=scale-down-width&content-scaling=fixed) |
 | Supplier | **Supplier 7** · Accept or reject the quotation | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8068-6965&starting-point-node-id=8068%3A6965&scaling=scale-down-width&content-scaling=fixed) |
 | Supplier | **Supplier 8** · Invoice unpaid → pay | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8264-11826&starting-point-node-id=8264%3A11826&scaling=scale-down-width&content-scaling=fixed) |
 | Supplier | **Supplier 9** · Upload documents / existing report | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8343-13944&starting-point-node-id=8343%3A13944&scaling=scale-down-width&content-scaling=fixed) |
@@ -60,9 +80,9 @@ Each link opens the Figma prototype at the start of that flow. The flows are als
 | Ethical team | **Ethical 1** · Home dashboard | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8331-13854&starting-point-node-id=8331%3A13854&scaling=scale-down-width&content-scaling=fixed) |
 | Ethical team | **Ethical 2** · Supplier list (factories expanded) | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8329-13639&starting-point-node-id=8329%3A13639&scaling=scale-down-width&content-scaling=fixed) |
 | Ethical team | **Ethical 3** · Supplier list · map view | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8352-13597&starting-point-node-id=8352%3A13597&scaling=scale-down-width&content-scaling=fixed) |
-| Ethical team | **Ethical 4** · Open task → view application (read only) | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8334-14734&starting-point-node-id=8334%3A14734&scaling=scale-down-width&content-scaling=fixed) |
+| Ethical team | **Ethical 4** · Questionnaire List → review application → accept / return / reject | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8329-13639&starting-point-node-id=8329%3A13639&scaling=scale-down-width&content-scaling=fixed) |
 | Ethical team | **Ethical 5** · Review application → accept / return / reject | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=7967-6258&starting-point-node-id=7967%3A6258&scaling=scale-down-width&content-scaling=fixed) |
-| Ethical team | **Ethical 6** · Review resubmitted application | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8374-13858&starting-point-node-id=8374%3A13858&scaling=scale-down-width&content-scaling=fixed) |
+| Ethical team | **Ethical 6** · Accepted → questionnaire card on 4.02q | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8366-17971&starting-point-node-id=8366%3A17971&scaling=scale-down-width&content-scaling=fixed) |
 | Ethical team | **Ethical 7** · Kick start → audit type and lab | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=7984-2572&starting-point-node-id=7984%3A2572&scaling=scale-down-width&content-scaling=fixed) |
 | Ethical team | **Ethical 8** · Review lab quote → markup → release | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8169-10112&starting-point-node-id=8169%3A10112&scaling=scale-down-width&content-scaling=fixed) |
 | Ethical team | **Ethical 9** · Desktop review in house | [▶ Play](https://www.figma.com/proto/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?page-id=7967%3A2548&node-id=8343-14858&starting-point-node-id=8343%3A14858&scaling=scale-down-width&content-scaling=fixed) |
@@ -129,7 +149,7 @@ Lanes from top to bottom: Buyer, Supplier, Ethical team, Lab, ICW account.
 
 ### 1 · Start: Home and lists
 
-- **Ethical team: [E.00 Home](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8331-13854).** KPI tiles, Ethical Audit card, Application & Kick Start card, dashboard and factory map. Clicking a number opens the [E.02 Supplier List](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8332-14406).
+- **Ethical team: [E.00 Home](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8331-13854).** KPI tiles, Ethical Audit card, Questionnaire & Kick Start card, dashboard and factory map. Clicking a number opens the [E.02 Supplier List](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8332-14406).
 - **Ethical team: [E.01 Supplier List](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8329-13639).** The SVSI Supplier List with factories expanded and an Ethical Task Status column. The [map view (E.01m)](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8352-13597) colours each pin by status; hovering a pin shows a tooltip ([E.01mh](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8440-17152)) and clicking it opens the task.
 - **Ethical team: form templates.** [3.01a Form Templates](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8033-8408) and the [2.00e form builder](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8233-9714).
 - **Lab: [L.00 Audit List](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8368-14084).** Laid out like the SVSI list, with Ethical Audit added.
@@ -141,26 +161,20 @@ Lanes from top to bottom: Buyer, Supplier, Ethical team, Lab, ICW account.
 ### 2 · Application
 
 - **Buyer** sends the application e-mail to a new supplier: [1a.02](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7965-6557).
-- **Supplier: [1b.03](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8286-17303).** Starts an ethical application from the factory profile.
+- **Supplier: [1b.01 Questionnaire List](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8539-17712).** The request arrives as a Need to Fill Application row; FILL opens the form.
 - **Supplier: [1b.04](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8306-13092).** Fills in registered factory and subcontracting factory details. The form opens in its empty default state; the [front-end note](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8360-13640) explains the jumping sections.
-- **Supplier submits.** [1b.06](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7979-2918) shows Pending Review.
-- **Save draft.** [1b.06d](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8389-18812): the task status is Draft, and the Application tab shows Last Saved and Progress.
+- **Supplier submits.** SUBMIT returns to [1b.01](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7965-6602); the questionnaire row shows Pending Review.
+- **Save draft.** SAVE DRAFT returns to 1b.01 with the row at Draft; clicking the row reopens the form.
 
 ![Buyer sends application](img/02-buyer-send-application.png)
 ![Supplier application](img/03-supplier-application.png)
 
 ### 3 · Factory check: accept, return or reject
 
-- **Ethical team: [E.03 Pending Review](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8334-14734)** → [3.03 Factory Review](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7967-6258). The review checks the registered and subcontracting factories against the factory database and shows the Review History.
-- **Accept:** [3.05](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7967-6624) → [4.02a Accepted](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8366-17971). The factory header gets an "Accepted Lab" chip. The supplier sees [1b.08a](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-15701).
-- **Return:** [3.03t](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8366-18681) has a **required Return Reason** → [E.04 Waiting For Supplier Resubmit](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8371-18403). On the supplier side:
-  1. [1b.08 Returned](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-13945) shows the reason.
-  2. [1b.08e Edit](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-14247) keeps the answers and marks the flagged section.
-  3. [1b.04r Resubmit](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8374-14227) has a **required Resubmit Reason**.
-  4. [1b.08b Resubmitted](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-14820) is read only.
-  5. The ethical team sees [E.03b Resubmitted](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8374-13858), which shows both reasons.
-  6. The loop can repeat: [1b.08c Returned again (round 2)](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-15107).
-- **Reject:** [3.03r](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8179-9615) has a **required Reject Reason** → [E.06 Application Rejected](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8366-18181). The supplier sees [1b.08r](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-15406), with the application closed and START NEW APPLICATION.
+- **Ethical team: [E.01 Questionnaire List](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8542-17784)** → [3.03 Factory Review](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7967-6258). The review checks the registered and subcontracting factories against the factory database and shows the Review History.
+- **Accept:** [3.05](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7967-6624) → [4.02a Accepted](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8366-17971). The factory header gets an "Accepted Lab" chip. The supplier sees [1b.01](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8539-17712).
+- **Return:** [3.03t](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8366-18681) has a **required Return Reason** → back to E.01; the questionnaire row shows Application Returned. The supplier's row shows Application Returned; clicking it opens [1b.04](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8306-13092) (resubmit with a **required Resubmit Reason** on [1b.04r](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8374-14227)). The resubmitted row opens 3.03 again; the loop can repeat.
+- **Reject:** [3.03r](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8179-9615) has a **required Reject Reason** → back to E.01; the row shows Application Rejected on both sides.
 - **Decision options on every factory.** On registered and subcontracting factory review pages the decision box always offers the other paths:
 
   | State | Buttons |
@@ -262,15 +276,17 @@ The Invoice tab follows the SVSI layout:
 
 ## Ethical status list (one column, in order)
 
+v10: the factory Ethical Task Status column starts at Wait For Kick Start. The Application rows below show in the Questionnaire List (E.01 / 1b.01) and as `/` in the factory table.
+
 | Stage | Status | Tone | Who acts next | Path | Screen |
 | --- | --- | --- | --- | --- | --- |
 | Application | Not Applied | Neutral | Supplier | ABCD | — |
-| Application | Draft | Neutral | Supplier | ABCD | [1b.06d](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8389-18812) |
-| Application | Pending Review (Submitted) | Warning | Ethical team | ABCD | [E.03](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8334-14734) / [1b.06](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7979-2918) |
-| Application | Waiting For Supplier Resubmit (Returned) | Warning | Supplier | ABCD | [E.04](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8371-18403) / [1b.08](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-13945) |
-| Application | Resubmitted · Pending Review | Warning | Ethical team | ABCD | [E.03b](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8374-13858) / [1b.08b](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-14820) |
-| Application | Application · Rejected (closed) | Error | — (the supplier starts a new application) | ABCD | [E.06](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8366-18181) / [1b.08r](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-15406) |
-| Kick start | Wait For Kick Start (Accepted) | Neutral | Ethical team | ABCD | [4.02a](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8366-17971) / [1b.08a](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-15701) |
+| Application | Draft | Neutral | Supplier | ABCD | [1b.01](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8539-17712) |
+| Application | Pending Review (Submitted) | Warning | Ethical team | ABCD | [3.03](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7967-6258) / [1b.01](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8539-17712) |
+| Application | Application Returned (Waiting For Supplier Resubmit) | Warning | Supplier | ABCD | [E.01](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8542-17784) / [1b.04](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8306-13092) |
+| Application | Resubmitted · Pending Review | Warning | Ethical team | ABCD | [3.03](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7967-6258) / [1b.01](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8539-17712) |
+| Application | Application Rejected (closed) | Error | — (the supplier starts a new application) | ABCD | [E.01](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8542-17784) / [1b.01](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8539-17712) |
+| Kick start | Wait For Kick Start (Accepted) | Neutral | Ethical team | ABCD | [4.02a](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8366-17971) / [4.02q](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8545-17846) |
 | Quotation | Waiting For Lab Quote | Info | Lab | AB | [4.04](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8060-13986) |
 | Quotation | TBG Reviewing Quote | Warning | Ethical team | AB | [4.04b](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8169-10112) |
 | Quotation | Waiting For Supplier Accept | Warning | Supplier | AB | [4.05](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8068-6965) |
@@ -299,15 +315,15 @@ Naming rules: use **Approve**, not "Active". Use **Rejected**, not "Inactive". T
 
 The supplier gets its own status names. Warning (amber) means it is the supplier's turn; Info (blue) means the supplier is waiting. On [1b.01 Factory List](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7965-6602) each factory row shows the Ethical Task Status; clicking the status opens that task page, not the factory overview. The [map view (1b.01m)](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8205-9607) colours each pin the same way; hovering a pin shows a tooltip ([1b.01mh](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8435-16933)) and clicking it opens the task. The first status is **Need to Fill Application**: FILL APPLICATION on 1b.09n opens the form (1b.04).
 
-| # | Supplier sees | Tone | Ethical team status | Supplier task page |
+| # | Supplier sees | Tone | Ethical team status | Supplier page |
 | --- | --- | --- | --- | --- |
-| 1 | Need to Fill Application | Warning | Not Applied (application requested) | [1b.09n](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8427-15696) |
-| 2 | Draft | Warning | Draft | [1b.06d](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8389-18812) |
-| 3 | Pending Review | Info | Pending Review | [1b.06](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=7979-2918) |
-| 4 | Application Returned | Warning | Waiting For Supplier Resubmit | [1b.08](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-13945) |
-| 5 | Resubmitted · Pending Review | Info | Resubmitted · Pending Review | [1b.08b](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-14820) |
-| 6 | Application Rejected | Error | Application · Rejected | [1b.08r](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-15406) |
-| 7 | Application Accepted | Success | Wait For Kick Start · Waiting For Lab Quote · TBG Reviewing Quote | [1b.08a](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8382-15701) |
+| 1 | Need to Fill Application | Warning | Not Applied (application requested) | [1b.04 (FILL)](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8306-13092) |
+| 2 | Draft | Warning | Draft | [1b.01](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8539-17712) |
+| 3 | Pending Review | Info | Pending Review | [1b.01](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8539-17712) |
+| 4 | Application Returned | Warning | Waiting For Supplier Resubmit | [1b.04](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8306-13092) |
+| 5 | Resubmitted · Pending Review | Info | Resubmitted · Pending Review | [1b.01](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8539-17712) |
+| 6 | Application Rejected | Error | Application · Rejected | [1b.01](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8539-17712) |
+| 7 | Application Accepted | Success | Wait For Kick Start · Waiting For Lab Quote · TBG Reviewing Quote | [1b.01](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8539-17712) |
 | 8 | Pending Quotation Accept | Warning | Waiting For Supplier Accept | [4.05](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8068-6965) |
 | 9 | Quotation Rejected | Error | Quotation Rejected | [4.05x](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8255-10875) |
 | 10 | Pending Invoice | Info | Pending Invoice | [1b.09i](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8427-15968) |
@@ -333,8 +349,7 @@ The supplier gets its own status names. Warning (amber) means it is the supplier
 2. **The return loop repeats.** Read the reason → edit (answers kept, flagged section marked) → resubmit with a reason → wait, read only → return again (newest reason first, earlier rounds still listed), reject or accept.
 3. **Actions that are not allowed are hidden.** There is no KICK START while an application is returned or rejected, and no EDIT while it is in review.
 4. **Save draft.** Leaving any form with unsaved changes opens **You Have Unsaved Changes** (CANCEL / DISCARD CHANGES / SAVE DRAFT), using the SVSI pattern. After SAVE DRAFT, the page shows the draft:
-   - [1b.06d](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8389-18812): supplier application draft;
-   - [1b.08d](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8389-19189): returned application with a saved draft;
+   - supplier application draft: the 1b.01 Questionnaire List row shows Draft (v10);
    - [E.03d](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8389-19706): saved review draft;
    - [3.01b](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8389-19534): template draft;
    - [S.01d](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8394-19442), [4.08d](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8394-19744), [L.03d](https://www.figma.com/design/HUpqECP1pJFN3GXZcMJgRH/TBG--Ethical---SQA?node-id=8394-20046): draft-saved pages for documents, CAP and the lab report.
